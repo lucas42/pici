@@ -9,7 +9,7 @@ RUN pip install docker-compose
 RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
 
 # /usr/local/bin doesn't seem to work when called directly over ssh
-RUN ln -s /usr/bin/docker /usr/local/bin/docker
+RUN ln -s /usr/local/bin/docker /usr/bin/docker
 
 ENV USER=docker-deploy
 RUN addgroup docker
