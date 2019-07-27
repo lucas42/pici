@@ -23,11 +23,8 @@ jobs:
           name: Populate known_hosts
           command: ssh-keyscan -p $SSH_PORT -H $BUILD_DOMAIN >> ~/.ssh/known_hosts
       - run:
-          name: ssh-add list
-          command: ssh-add -l
-      - run:
           name: Remote build
-          command: ssh $DEPLOY_USERNAME@$BUILD_DOMAIN -A -p $SSH_PORT CIRCLE_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME DOCKERHUB_PASSWORD=$DOCKERHUB_PASSWORD /usr/local/bin/quickbuild.sh
+          command: ssh $DEPLOY_USERNAME@$BUILD_DOMAIN -o "StrictHostKeyChecking no" -A -p $SSH_PORT CIRCLE_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME DOCKERHUB_PASSWORD=$DOCKERHUB_PASSWORD quickbuild.sh
   deploy:
     parameters:
       host-domain:
