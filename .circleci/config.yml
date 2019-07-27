@@ -21,10 +21,10 @@ jobs:
             - "3b:d2:84:bc:c8:2e:09:b7:2f:e7:50:23:46:41:cf:23"
       - run:
           name: Populate known_hosts
-          command: ssh-keyscan -H $BUILD_DOMAIN >> ~/.ssh/known_hosts
+          command: ssh-keyscan -H $BUILD_DOMAIN -p $SSH_PORT >> ~/.ssh/known_hosts
       - run:
           name: Remote build
-          command: ssh $DEPLOY_USERNAME@$BUILD_DOMAIN -o "StrictHostKeyChecking no" -A -p $SSH_PORT CIRCLE_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME DOCKERHUB_PASSWORD=$DOCKERHUB_PASSWORD /usr/local/bin/quickbuild.sh
+          command: ssh $DEPLOY_USERNAME@$BUILD_DOMAIN -A -p $SSH_PORT CIRCLE_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME DOCKERHUB_PASSWORD=$DOCKERHUB_PASSWORD /usr/local/bin/quickbuild.sh
   deploy:
     parameters:
       host-domain:
