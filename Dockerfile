@@ -8,6 +8,9 @@ RUN pip install docker-compose
 
 RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
 
+# /usr/local/bin doesn't seem to work when called directly over ssh
+ln -s /usr/bin/docker /usr/local/bin/docker
+
 ENV USER=docker-deploy
 RUN addgroup docker
 RUN adduser -D $USER -G docker
@@ -17,7 +20,7 @@ RUN echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCYt5KA+HeY45JzwwF0hl/+9Zdgp/9z04
 RUN ssh-keyscan -H github.com >> /home/$USER/.ssh/known_hosts
 RUN chown $USER /home/$USER/.ssh/known_hosts
 
-COPY quickbuild.sh /usr/local/bin/quickbuild.sh
+COPY quickbuild.sh /usr/bin/quickbuild.sh
 
 EXPOSE 22
 CMD ["bash", "start.sh"]
