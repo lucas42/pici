@@ -6,3 +6,4 @@ services:
       ports: 
         - "2222:22"
       image: lucas42/pici
+      privileged: true
