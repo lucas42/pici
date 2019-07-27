@@ -10,6 +10,8 @@ jobs:
       COMPOSE_PROJECT_NAME: pici
       BUILD_DOMAIN: << parameters.build-domain >>
       SSH_PORT: << parameters.ssh-port >>
+    docker:
+      - image: circleci/buildpack-deps:buster
     steps:
       - run:
           name: Check BUILD_DOMAIN
