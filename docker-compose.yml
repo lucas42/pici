@@ -1,0 +1,8 @@
+version: '3'
+services:
+    router:
+      build: .
+      container_name: pici
+      ports: 
+        - "2222:22"
+      image: lucas42/pici
