@@ -3,8 +3,8 @@ FROM docker:dind
 WORKDIR /usr/src/app
 
 RUN apk --update add curl bash openssh git
-RUN curl -L --fail https://github.com/docker/compose/releases/download/1.24.1/run.sh -o /usr/local/bin/docker-compose
-RUN chmod +x /usr/local/bin/docker-compose
+RUN apk add py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
+RUN pip install docker-compose
 
 RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
 
