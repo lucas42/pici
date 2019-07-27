@@ -1,6 +1,6 @@
 version: '3'
 services:
-    router:
+    pici:
       build: .
       container_name: pici
       ports: 
