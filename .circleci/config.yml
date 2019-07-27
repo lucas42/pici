@@ -24,7 +24,9 @@ jobs:
           command: ssh-keyscan -H $BUILD_DOMAIN -p $SSH_PORT >> ~/.ssh/known_hosts
       - run:
           name: Remote build
-          command: ssh $DEPLOY_USERNAME@$BUILD_DOMAIN -A -p $SSH_PORT CIRCLE_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME DOCKERHUB_PASSWORD=$DOCKERHUB_PASSWORD /usr/local/bin/quickbuild.sh
+          command: |
+            ssh-add
+            ssh $DEPLOY_USERNAME@$BUILD_DOMAIN -A -p $SSH_PORT CIRCLE_REPOSITORY_URL=$CIRCLE_REPOSITORY_URL DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME DOCKERHUB_PASSWORD=$DOCKERHUB_PASSWORD /usr/local/bin/quickbuild.sh
   deploy:
     parameters:
       host-domain:
