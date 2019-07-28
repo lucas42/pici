@@ -5,5 +5,10 @@ services:
       container_name: pici
       ports: 
         - "2222:22"
+      volumes:
+        - "docker:/var/lib/docker/"
       image: lucas42/pici
       privileged: true
+
+volumes:
+  docker:
