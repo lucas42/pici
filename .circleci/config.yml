@@ -30,7 +30,7 @@ jobs:
       host-domain:
         type: string
     environment:
-      COMPOSE_PROJECT_NAME: lucos_router
+      COMPOSE_PROJECT_NAME: pici
       PRODUCTION: true
       HOSTDOMAIN: << parameters.host-domain >>
     docker:
