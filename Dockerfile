@@ -12,6 +12,7 @@ RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypo
 RUN ln -s /usr/local/bin/docker /usr/bin/docker
 
 # Workaround for "error creating overlay mount" error
+RUN mkdir -p /etc/docker
 RUN echo '{"max-concurrent-uploads": 1}' > /etc/docker/daemon.json
 
 ENV USER=docker-deploy
