@@ -2,9 +2,7 @@ FROM docker:dind
 
 WORKDIR /usr/src/app
 
-RUN apk --update add curl bash openssh git
-RUN apk add py-pip python-dev libffi-dev openssl-dev gcc libc-dev make
-RUN pip install docker-compose
+RUN apk --update add curl bash openssh git docker-compose
 
 RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
 
