@@ -1,11 +1,19 @@
-# Use this version of dind until https://github.com/docker-library/docker/issues/260 is fixed, at which point can return to official docker version of dind
-FROM mazzolino/docker:20-dind
+FROM docker:19.03.8-dind
 
 WORKDIR /usr/src/app
 
 RUN apk --update add curl bash openssh git docker-compose
 
 RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
+
+# HACK: Get later version from unofficial source, as official builds beyond 19.03.8 are currently broken ( https://github.com/docker-library/docker/issues/260 )
+RUN wget -O docker.tgz "https://github.com/djmaze/docker-armhf-binaries/releases/download/20.10.12/docker-20.10.12.tgz"; \
+	tar --extract \
+		--file docker.tgz \
+		--strip-components 1 \
+		--directory /usr/local/bin/ \
+	; \
+	rm docker.tgz;
 
 # /usr/local/bin doesn't seem to work when called directly over ssh
 RUN ln -s /usr/local/bin/docker /usr/bin/docker
