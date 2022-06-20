@@ -1,4 +1,5 @@
-FROM docker:19.03.8-dind
+# Use this version of dind until https://github.com/docker-library/docker/issues/260 is fixed, at which point can return to official docker version of dind
+FROM mazzolino/docker:20-dind
 
 WORKDIR /usr/src/app
 
