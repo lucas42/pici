@@ -1,4 +1,4 @@
-FROM docker:19.03.9-dind
+FROM docker:19.03.8-dind
 
 WORKDIR /usr/src/app
 
