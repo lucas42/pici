@@ -9,6 +9,7 @@ services:
         - "docker:/var/lib/docker/"
       image: lucas42/pici
       privileged: true
+      restart: always
 
 volumes:
   docker:
