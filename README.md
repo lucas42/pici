@@ -13,3 +13,17 @@ Hopefully I've remembered to download this key locally to my laptop this time.  
 
 ## CI
 This repo relies on a running copy of itself in order to build.  When it works, that's marvellous.  If it manages to break, it's a world of pain trying to fix.  You may need to manually do all the steps from the Dockerfile on the host you're trying to run it on (or one with the same architecture).
+
+## Adding to new architecture
+On a system with docker already installed, run the following:
+* cd /tmp
+* git clone https://github.com/lucas42/pici.git
+* cd pici
+* docker compose build
+* docker compose up
+
+Then add the new target to .circle/config.yml in this repository.  (Likely need to add new jobs to [lucos_deploy_orb](https://github.com/lucas42/lucos_deploy_orb) first.)
+
+Commiting and push this change should trigger a build and deploy to the new target.
+
+Once completed you can tidy up by running `rm -rf /tmp/pici`
