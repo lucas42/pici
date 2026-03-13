@@ -2,7 +2,7 @@ FROM docker:27.4.1-dind
 
 WORKDIR /usr/src/app
 
-RUN apk --update add curl bash openssh openssh-client git
+RUN apk --update add curl bash openssh openssh-client git busybox-extras
 
 RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
 
