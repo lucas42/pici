@@ -9,6 +9,12 @@ services:
       image: lucas42/pici
       privileged: true
       restart: always
+      healthcheck:
+        test: ["CMD", "nc", "-z", "127.0.0.1", "22"]
+        interval: 10s
+        timeout: 5s
+        retries: 3
+        start_period: 15s
 
 volumes:
   docker:
