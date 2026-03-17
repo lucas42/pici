@@ -4,7 +4,10 @@ WORKDIR /usr/src/app
 
 RUN apk --update add curl bash openssh openssh-client git busybox-extras
 
-RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
+RUN echo -e "#!/bin/bash\nset -e\nssh-keygen -A\ncrond\n/usr/sbin/sshd\ndockerd-entrypoint.sh" > start.sh
+
+# Prune dangling Docker images daily to prevent unbounded volume growth
+RUN echo "0 3 * * * docker image prune -f >> /var/log/docker-prune.log 2>&1" > /etc/crontabs/root
 
 # Workaround for "error creating overlay mount" error
 RUN mkdir -p /etc/docker
